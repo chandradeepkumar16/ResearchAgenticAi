@@ -3,17 +3,29 @@ from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
 from reportlab.lib.styles import getSampleStyleSheet
 from newagent import agent
 
+from fpdf import FPDF
+
 def save_to_pdf(text, filename="research_report.pdf"):
-    """Save text output into a PDF file."""
-    doc = SimpleDocTemplate(filename)
-    styles = getSampleStyleSheet()
-    story = []
+    pdf = FPDF()
+    pdf.add_page()
+    pdf.set_font("Arial", size=12)
 
     for line in text.split("\n"):
-        story.append(Paragraph(line, styles["Normal"]))
-        story.append(Spacer(1, 12))
+        pdf.multi_cell(0, 10, line)
 
-    doc.build(story)
+    pdf.output(filename)
+
+# def save_to_pdf(text, filename="research_report.pdf"):
+#     """Save text output into a PDF file."""
+#     doc = SimpleDocTemplate(filename)
+#     styles = getSampleStyleSheet()
+#     story = []
+
+#     for line in text.split("\n"):
+#         story.append(Paragraph(line, styles["Normal"]))
+#         story.append(Spacer(1, 12))
+
+#     doc.build(story)
 
 # --- Streamlit Interface ---
 st.title("🧑‍🔬 Agentic Research Assistant")
